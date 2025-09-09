@@ -1,0 +1,27 @@
+[
+    {
+        "linha": "{",
+        "nivel": "INFO",
+        "detalhes": "Sem problemas"
+    },
+    {
+        "linha": "\"arquivo_recebido\": \"Anon1_anon.txt\",",
+        "nivel": "INFO",
+        "detalhes": "Sem problemas"
+    },
+    {
+        "linha": "\"saida\": \"C:\\\\Users\\\\win\\\\Downloads\\\\mini-siem-v2\\\\app\\\\..\\\\output\\\\Anon1_anon.json\",",
+        "nivel": "INFO",
+        "detalhes": "Sem problemas"
+    },
+    {
+        "linha": "\"total_linhas\": 38065",
+        "nivel": "INFO",
+        "detalhes": "Sem problemas"
+    },
+    {
+        "linha": "}",
+        "nivel": "INFO",
+        "detalhes": "Sem problemas"
+    }
+]

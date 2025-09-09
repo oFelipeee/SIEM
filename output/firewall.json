@@ -1,0 +1,20 @@
+[
+    {
+        "evento": "System started successfully",
+        "risco": "Informativo",
+        "justificativa": "Sem indícios de risco relevante.",
+        "acao_mitigadora": "Nenhuma ação necessária."
+    },
+    {
+        "evento": "Warning: unusual traffic detected",
+        "risco": "Baixo",
+        "justificativa": "Erro genérico identificado no log.",
+        "acao_mitigadora": "Revisar logs de aplicação e corrigir configuração."
+    },
+    {
+        "evento": "Error: connection failed",
+        "risco": "Baixo",
+        "justificativa": "Erro genérico identificado no log.",
+        "acao_mitigadora": "Revisar logs de aplicação e corrigir configuração."
+    }
+]
