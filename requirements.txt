@@ -1,2 +1,3 @@
+#Necessário instalar as seguintes bibliotecas:
 fastapi
 uvicorn
