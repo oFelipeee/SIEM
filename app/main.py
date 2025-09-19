@@ -6,12 +6,10 @@ import glob
 import json
 import logging
 
-# Configuração de logging para depuração
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 app = FastAPI()
 
-# Definição dos diretórios
 LOGS_DIR = "logs"
 OUTPUT_DIR = "output"
 UPLOAD_DIR = "uploaded_logs_temp"
@@ -23,7 +21,6 @@ def garantir_pasta(pasta: str):
         os.makedirs(pasta)
         logging.info(f"Diretório criado: {pasta}")
 
-# Salva a saída da análise em um arquivo JSON
 def salvar_json(dados: list, filepath: str):
     """Salva os dados de análise em um arquivo JSON."""
     try:
@@ -33,7 +30,6 @@ def salvar_json(dados: list, filepath: str):
     except IOError as e:
         logging.error(f"Erro ao salvar o arquivo JSON {filepath}: {e}")
 
-# Função central para análise de uma única linha de log
 def analisar_linha(linha: str):
     """
     Classifica eventos de log conforme risco, com justificativa e mitigação
@@ -77,7 +73,6 @@ def processar_logs_do_diretorio():
     arquivos = glob.glob(os.path.join(LOGS_DIR, "*.log")) + \
                glob.glob(os.path.join(LOGS_DIR, "*.txt"))
     
-    # Adiciona arquivos temporários recém-carregados
     arquivos += glob.glob(os.path.join(UPLOAD_DIR, "*.log")) + \
                glob.glob(os.path.join(UPLOAD_DIR, "*.txt"))
 
@@ -101,7 +96,6 @@ def processar_logs_do_diretorio():
         salvar_json(resultados, saida_json_path)
         resultados_totais[nome_arquivo] = saida_json_path
     
-    # Move os arquivos temporários para o diretório de logs principal após o processamento
     for arquivo_temp in glob.glob(os.path.join(UPLOAD_DIR, "*")):
         shutil.move(arquivo_temp, os.path.join(LOGS_DIR, os.path.basename(arquivo_temp)))
         logging.info(f"Arquivo movido de '{UPLOAD_DIR}' para '{LOGS_DIR}': {os.path.basename(arquivo_temp)}")
@@ -125,7 +119,6 @@ def analisar_logs():
     logging.info("Iniciando a análise de todos os logs existentes.")
     return processar_logs_do_diretorio()
 
-# Endpoint para upload de um arquivo de log
 @app.post("/upload_log")
 async def upload_log(file: UploadFile = File(...)):
     """
@@ -134,7 +127,6 @@ async def upload_log(file: UploadFile = File(...)):
     """
     garantir_pasta(UPLOAD_DIR)
     
-    # Salva o arquivo temporariamente para processamento
     filepath_temp = os.path.join(UPLOAD_DIR, file.filename)
     try:
         with open(filepath_temp, "wb") as buffer:
@@ -143,7 +135,6 @@ async def upload_log(file: UploadFile = File(...)):
     except IOError as e:
         return {"erro": f"Erro ao salvar o arquivo: {e}"}
 
-    # Processa o arquivo recém-carregado
     resultados = processar_logs_do_diretorio()
 
     return {
